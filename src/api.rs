@@ -161,4 +161,14 @@ impl ApiClient {
 
         res.json().await.context("解析支付响应失败")
     }
+
+    pub async fn get_utxo(&self, address: String) -> Result<ApiResponse<Vec<UtxoData>>> {
+        let url = format!(
+            "https://wallet-api-fractalbitcoin.unisat.space/v5/address/btc-utxo?address={address}"
+        );
+
+        let res = self.get(&url)?.send().await.context("发送请求失败")?;
+
+        res.json().await.context("解析 JSON 失败")
+    }
 }

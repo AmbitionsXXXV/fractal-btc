@@ -21,6 +21,25 @@ pub struct ApiResponse<T> {
 }
 
 #[derive(Debug, Deserialize)]
+pub struct UtxoData {
+    #[serde(rename = "txid")]
+    pub tx_id: String,
+    #[serde(rename = "vout")]
+    pub v_out: u32,
+    #[serde(rename = "satoshis")]
+    pub satoshi: u64,
+    #[serde(rename = "scriptPk")]
+    pub script_pk: String,
+    #[serde(rename = "addressType")]
+    pub address_type: u32,
+    pub inscriptions: Vec<String>,
+    pub atomicals: Vec<String>,
+    pub runes: Vec<String>,
+    pub pubkey: String,
+    pub height: u32,
+}
+
+#[derive(Debug, Deserialize)]
 pub struct ResponseData {
     pub detail: Vec<TokenDetail>,
 }

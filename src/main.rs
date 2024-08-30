@@ -34,22 +34,22 @@ async fn main() -> Result<()> {
     println!("  最低费用：{}", recommended_fees.minimum_fee);
 
     // -- 获取 BRC20 铭文状态
-    let brc20_status = client.get_brc20_status().await?;
-    println!("BRC20 状态：");
-    for token in &brc20_status.data.detail {
-        // -- 过滤掉 self_mint 为 true 的 ticker
-        if !token.self_mint && token.holders_count.gt(&2) {
-            println!("铭文：{}", token.ticker);
-            println!("  铭文 ID：{:#?}", token);
-            let ticker_info = client.get_brc20_ticker_info(&token.ticker).await?;
-            let mint_progress = calculate_mint_progress(&ticker_info.data);
-            println!("铭文详情：");
-            println!("  总铸造量：{}", ticker_info.data.total_minted);
-            println!("  最大供应量：{}", ticker_info.data.max);
-            println!("  铸造进度：{:.2}%", mint_progress);
-            println!("---");
-        }
-    }
+    // let brc20_status = client.get_brc20_status().await?;
+    // println!("BRC20 状态：");
+    // for token in &brc20_status.data.detail {
+    //     // -- 过滤掉 self_mint 为 true 的 ticker
+    //     if !token.self_mint && token.holders_count.gt(&2) {
+    //         println!("铭文：{}", token.ticker);
+    //         println!("  铭文 ID：{:#?}", token);
+    //         let ticker_info = client.get_brc20_ticker_info(&token.ticker).await?;
+    //         let mint_progress = calculate_mint_progress(&ticker_info.data);
+    //         println!("铭文详情：");
+    //         println!("  总铸造量：{}", ticker_info.data.total_minted);
+    //         println!("  最大供应量：{}", ticker_info.data.max);
+    //         println!("  铸造进度：{:.2}%", mint_progress);
+    //         println!("---");
+    //     }
+    // }
 
     // -- 创建 BRC20 铸造订单（注释掉的部分）
     // let create_order_request = CreateOrderRequest {
@@ -66,6 +66,11 @@ async fn main() -> Result<()> {
     //     .create_brc20_mint_order(&create_order_request)
     //     .await?;
     // println!("订单创建成功：{:#?}", order_response);
+
+    // -- 获取 UTXO
+    let utxos = client.get_utxo(ADDRESS.to_string()).await?;
+
+    println!("UTXO：{utxos:#?}");
 
     Ok(())
 }
