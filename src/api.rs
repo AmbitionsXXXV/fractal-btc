@@ -162,13 +162,21 @@ impl ApiClient {
         res.json().await.context("解析支付响应失败")
     }
 
-    pub async fn get_utxo(&self, address: String) -> Result<ApiResponse<Vec<UtxoData>>> {
+    pub async fn get_utxo(&self, address: String) -> Result<Vec<UtxoData>> {
         let url = format!(
             "https://wallet-api-fractalbitcoin.unisat.space/v5/address/btc-utxo?address={address}"
         );
 
         let res = self.get(&url)?.send().await.context("发送请求失败")?;
 
-        res.json().await.context("解析 JSON 失败")
+        let response: ApiResponse<Vec<UtxoData>> = res.json().await.context("解析 JSON 失败")?;
+
+        // -- 检查 data 的长度
+        if response.data.is_empty() {
+            // -- 如果没有 UTXO，返回相应消息
+            return Err(anyhow::anyhow!("没有 UTXO"));
+        }
+
+        Ok(response.data) // -- 返回 data 字段
     }
 }
