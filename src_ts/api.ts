@@ -202,7 +202,7 @@ export class ApiClient {
 	}
 
 	// 广播交易
-	async broadcastTx(psbtHex) {
+	async broadcastTx(psbtHex: string) {
 		const url = "https://mempool.fractalbitcoin.io/api/tx"
 		const res = await this.client.post(url, psbtHex, {
 			headers: {
