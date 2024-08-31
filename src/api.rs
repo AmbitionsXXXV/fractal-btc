@@ -2,10 +2,14 @@
 #![allow(unused_variables)]
 
 use anyhow::{Context, Result};
+use bitcoin::key::Secp256k1;
+use bitcoin::secp256k1::PublicKey;
+use bitcoin::secp256k1::SecretKey;
 use dotenv::dotenv;
 use reqwest::{Client, RequestBuilder};
 use serde_json::json;
 use std::env;
+use std::str::FromStr;
 
 use crate::constants::*;
 use crate::types::*;
@@ -178,5 +182,16 @@ impl ApiClient {
         }
 
         Ok(response.data) // -- 返回 data 字段
+    }
+
+    pub fn get_pub_key(&self) -> Result<PublicKey> {
+        let secp = Secp256k1::new();
+        let wif_private_key = env::var("WIF_PRIVATE_KEY")?;
+        let sk = SecretKey::from_str(&wif_private_key).context("解析私钥失败")?;
+        let key = PublicKey::from_secret_key(&secp, &sk);
+
+        println!("公钥：{:#?}", key);
+
+        Ok(key)
     }
 }

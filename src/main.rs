@@ -72,5 +72,8 @@ async fn main() -> Result<()> {
 
     println!("UTXO：{utxos:#?}");
 
+    // -- 获取公钥
+    // let key = client.get_pub_key()?;
+
     Ok(())
 }

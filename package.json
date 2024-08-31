@@ -1,0 +1,31 @@
+{
+  "name": "fractal_btc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@mempool/mempool.js": "^2.3.0",
+    "axios": "^1.7.5",
+    "bip32": "^4.0.0",
+    "bip39": "^3.1.0",
+    "bitcoinjs-lib": "^6.1.6",
+    "dotenv": "^16.4.5",
+    "ecpair": "^2.1.0",
+    "tiny-secp256k1": "^2.2.3",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4",
+    "winston": "^3.14.2",
+    "winston-daily-rotate-file": "^5.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.8.3",
+    "@types/node": "^22.5.1"
+  }
+}
