@@ -48,10 +48,10 @@ async function main() {
 	//     fee_rate: recommendedFees.fastest_fee,
 	//     output_value: 546,
 	//     dev_address: process.env.ADDRESS,
-	//     dev_fee: 0,
-	//     brc20_ticker: 'cndoge',
+	//     dev_fee: 0, // 根据 gasPrice 计算
+	//     brc20_ticker: 'cndoge', // -- 选择一个 BRC20 代币
 	//     brc20_amount: '1000',
-	//     count: 100,
+	//     count: 100, // 1~100
 	// };
 	// const orderResponse = await client.createBrc20MintOrder(createOrderRequest);
 	// console.log(`订单创建成功：${JSON.stringify(orderResponse)}`);
